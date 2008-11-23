@@ -1,0 +1,19 @@
+= Daum
+
+Ruby gem for using Daum API.
+
+
+== Install
+
+	gem list
+
+
+== Usage
+
+Let's say something.
+
+
+== License
+
+Copyright (c) 2008 Hyunwoo Park
+
