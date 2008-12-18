@@ -1,0 +1,14 @@
+== 0.1.1, release 2008-12-17
+
+* added init.rb, CHANGELOG.rdoc, Unit Test
+* implemented search api wrapper
+* init.rb, CHANGELOG.rdoc, Unit Test 추가
+* 검색 API wrapper 구현
+
+
+== 0.0.1, release 2008-11-22
+
+* first commit
+* no classes, methods implemented
+* 첫 번째 커밋
+* 아직 아무 것도 안 했음

@@ -1,19 +1,69 @@
-= Daum
+= Daum 0.2.1
 
-Ruby gem for using Daum API.
-
-
-== Install
-
-	gem list
+Ruby gem for using Daum OpenAPI (http://dna.daum.net/apis).
+다음 OpenAPI를 위한 루비젬입니다.
 
 
-== Usage
+== Notice / 유의점
 
-Let's say something.
+Keyword suggestion api is not supported by this gem.
+문맥 키워드 추천 API는 이 젬에서 지원하지 않습니다.
+
+Output file formats other than RSS will cause an error.
+RSS 포맷으로만 아웃풋을 출력하셔야 합니다. 그렇지 않으면 에러가 발생할 수 있습니다.
+
+For using shopping detail api, you have to enter DocID instead of Query string.
+쇼핑 상품 API를 사용하실 때는 쿼리문 대신에 DocID 문자열을 넘겨주셔야 합니다.
+
+
+== Install / 설치법
+
+You can install the gem from rubyforge directly.
+루비포지에서 바로 설치하실 수 있습니다.
+	gem install daum
+
+
+== Usage / 사용법
+
+Before using this gem, you need to get your own API key. To obtain your API key, see https://apis.daum.net/register/apikey.daum.
+이 젬을 사용하기 전에 API 키를 발급 받으셔야 합니다. API 키 발급을 위해서는 https://apis.daum.net/register/apikey.daum 링크를 참고해 주세요.
+
+	require 'daum'
+	daum = Daum::Base.new(api_key)		### create a daum client / 다음 클라이언트를 생성합니다
+	daum.request("삼국지", "go", {:result => "10", :pageno => "1", :sort => "date"})		### return root node as libxml node / libxml 형식의 노드로 루트 노드를 반환합니다
+	daum.knowledge("삼국지", {:result => "10", :pageno => "1", :sort => "date"})		### return RSS object / 자체 정의된 RSS 클래스 오브젝트를 반환합니다
+	daum.knowledge("삼국지", {:re => "10", :p => "1", :so => "date"})		### It's possible to use abbreviation for each option / 검색 옵션을 넘길 때 약어를 사용 가능합니다
+	daum.knowledge("삼국지").lastBuildDate		### return lastBuildDate content in String / 스트링으로 lastBuildDate 값을 반환합니다
+	daum.knowledge("삼국지").items.each do |i|		### items returns array of Item object which contains title, link, and so on.
+		puts i.title		### items는 Item 오브젝트의 배열을 반환하고 각 Item 오브젝트 속에 title, link 등이 들어있습니다.
+	end
+
+You may want to take a look at the test file (test/test_daum.rb) to better understand the usage.
+보다 자세한 사용법을 이해하시길 원하시면 테스트 파일 (test/test_daum.rb)을 참고하시면 됩니다.
+
+
+== Search Option Abbreviation List / 검색 옵션 약어 목록
+
+The full list of abbreviation codes is the following. (You can still use full name of each parameter.)
+약어 전체 목록을 아래에 정리하였습니다. (약어를 쓰지 않으셔도 작동합니다.)
+
+	re = result
+	ra = range
+	p = pageno
+	o = output
+	s = sort
+	ta = target
+	c = condition
+	ci = cate_id
+	st = searchType
+	ts = tagsearch
+	di = docid
+	g = group
+	req = requestor
+	ti = title
 
 
 == License
 
-Copyright (c) 2008 Hyunwoo Park
-
+Copyright:: Copyright (c) 2008 Hyunwoo Park <hwpark@oksurerails.com>
+License::   MIT <http://www.opensource.org/licenses/mit-license.php>
